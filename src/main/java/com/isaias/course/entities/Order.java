@@ -2,6 +2,8 @@ package com.isaias.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,8 +42,9 @@ public class Order implements Serializable{
 	@JoinColumn(name = "client_id")
 	private User client;
 	
-	// Criando um construtor
+	//private Set<OrderItem> items = new HashSet<>();
 	
+	// Criando um construtor
 	public Order() {
 		
 	}
