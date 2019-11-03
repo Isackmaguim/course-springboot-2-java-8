@@ -1,14 +1,21 @@
 package com.isaias.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
  // Mapeamamento do JPA
 @Entity
+@Table(name = "tb_user")  // modificando o nome da tabela
 public class User implements Serializable {
 	/**
 	 * Aqui foi adcionado um numero de serie atravez do Serializable
@@ -22,6 +29,11 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String passwoard;
+	
+	// 1-->* (muitos) cliente(usuario) tem varios pedidos (cleção)
+	@JsonIgnore  // Essa anotação é para não entrar num loop infinito
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
 	
 	public User() {
 		
@@ -75,7 +87,11 @@ public class User implements Serializable {
 	public void setPasswoard(String passwoard) {
 		this.passwoard = passwoard;
 	}
-
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +116,8 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
+
 
 	
 }
